@@ -1,0 +1,28 @@
+<?xml version="1.0" standalone="yes"?>
+<project name="axel" default="dist" basedir=".">
+	<property name="src.dir" location="src"/>
+	<property name="deploy.dir" location="dist"/>
+	<property environment="env"/>
+  	<property name="env.FLEX_HOME" location="/Applications/Adobe Flash Builder 4.6/sdks/4.6.0" />
+  	<property name="FLEX_HOME" location="${env.FLEX_HOME}" />
+  	<property name="env.AIR_SDK_HOME" location="${env.FLEX_HOME}" />
+  	<property name="AIR_SDK_HOME" location="${env.AIR_SDK_HOME}" />
+
+  	<property name="compc.optimize" value="true"/>
+  	<property name="compc.debug" value="false"/>
+
+  	<taskdef resource="flexTasks.tasks" classpath="${env.AIR_SDK_HOME}/ant/lib/flexTasks.jar" />
+
+	<target name="clean" description="Removes all generated files and directories">
+		<delete dir="${deploy.dir}"/>
+	</target>
+
+	<target name="dist" description="Builds the library (${ant.project.name}.swc file)">
+		<mkdir dir="${deploy.dir}"/>
+		<compc output="${deploy.dir}/${ant.project.name}.swc" optimize="${compc.optimize}" debug="{compc.debug}">
+			<source-path path-element="${src.dir}"/>
+			<include-sources dir="${src.dir}" includes="*" />			
+		</compc>
+	</target>
+
+</project>
